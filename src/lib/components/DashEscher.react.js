@@ -1,35 +1,34 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Builder from 'escher'
+import * as escher from 'escher'
+import * as d3 from "d3";
+
 
 /**
- * ExampleComponent is an example component.
- * It takes a property, `label`, and
- * displays it.
- * It renders an input with the property `value`
- * which is editable by the user.
+ * DashEscher visualizes a metabolic network using Escher Builder.
+ * It takes two properties, `mapData` and `modelData`, and
+ * displays the network.
  */
 export default class DashEscher extends Component {
+    constructor(props) {
+        super(props);
+
+        this.myReference = React.createRef();
+    }
+
+    componentDidMount() {
+        var container = d3.select(this.myReference.current);
+        var b = Builder(this.props.mapData, this.props.modelData, null, container, this.props.options)
+    }
+
+
     render() {
-        const {id, label, setProps, value} = this.props;
+        const {id, height, width} = this.props;
 
         return (
             <div id={id}>
-                ExampleComponent: {label}&nbsp;
-                <input
-                    value={value}
-                    onChange={
-                        /*
-                         * Send the new value to the parent component.
-                         * setProps is a prop that is automatically supplied
-                         * by dash's front-end ("dash-renderer").
-                         * In a Dash app, this will update the component's
-                         * props and send the data back to the Python Dash
-                         * app server if a callback uses the modified prop as
-                         * Input or State.
-                         */
-                        e => setProps({ value: e.target.value })
-                    }
-                />
+                <div ref={this.myReference} style={{height: height, width: width}}></div>
             </div>
         );
     }
@@ -44,14 +43,30 @@ DashEscher.propTypes = {
     id: PropTypes.string,
 
     /**
-     * A label that will be printed when this component is rendered.
+     * The metabolic network map.
      */
-    label: PropTypes.string.isRequired,
+    mapData: PropTypes.array.isRequired,
 
     /**
-     * The value displayed in the input.
+     * The metabolic network model.
      */
-    value: PropTypes.string,
+    modelData: PropTypes.object,
+
+    /**
+     * Rendering options. Full list of options at
+     * https://escher.readthedocs.io/en/latest/javascript_api.html
+     */
+    options: PropTypes.object,
+
+    /** 
+     * Width of the canvas.
+     */
+    width: PropTypes.string,
+
+    /**
+     * Height of the canvas.
+     */
+    height: PropTypes.string,
 
     /**
      * Dash-assigned callback that should be called to report property changes

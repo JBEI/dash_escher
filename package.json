@@ -24,7 +24,11 @@
   "author": "Jacob Roberts <jacoberts@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "ramda": "^0.26.1"
+    "@types/d3": "^7.4.0",
+    "d3": "^7.6.1",
+    "escher": "^1.7.3",
+    "ramda": "^0.26.1",
+    "watch": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",

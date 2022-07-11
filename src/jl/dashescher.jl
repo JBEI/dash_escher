@@ -6,18 +6,20 @@ export dashescher
     dashescher(;kwargs...)
 
 A DashEscher component.
-ExampleComponent is an example component.
-It takes a property, `label`, and
-displays it.
-It renders an input with the property `value`
-which is editable by the user.
+DashEscher visualizes a metabolic network using Escher Builder.
+It takes two properties, `mapData` and `modelData`, and
+displays the network.
 Keyword arguments:
 - `id` (String; optional): The ID used to identify this component in Dash callbacks.
-- `label` (String; required): A label that will be printed when this component is rendered.
-- `value` (String; optional): The value displayed in the input.
+- `height` (String; optional): Height of the canvas.
+- `mapData` (Array; required): The metabolic network map.
+- `modelData` (Dict; optional): The metabolic network model.
+- `options` (Dict; optional): Rendering options. Full list of options at
+https://escher.readthedocs.io/en/latest/javascript_api.html
+- `width` (String; optional): Width of the canvas.
 """
 function dashescher(; kwargs...)
-        available_props = Symbol[:id, :label, :value]
+        available_props = Symbol[:id, :height, :mapData, :modelData, :options, :width]
         wild_props = Symbol[]
         return Component("dashescher", "DashEscher", "dash_escher", available_props, wild_props; kwargs...)
 end

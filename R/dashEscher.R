@@ -1,9 +1,9 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 #' @export
-dashEscher <- function(id=NULL, label=NULL, value=NULL) {
+dashEscher <- function(id=NULL, height=NULL, mapData=NULL, modelData=NULL, options=NULL, width=NULL) {
     
-    props <- list(id=id, label=label, value=value)
+    props <- list(id=id, height=height, mapData=mapData, modelData=modelData, options=options, width=width)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
@@ -11,7 +11,7 @@ dashEscher <- function(id=NULL, label=NULL, value=NULL) {
         props = props,
         type = 'DashEscher',
         namespace = 'dash_escher',
-        propNames = c('id', 'label', 'value'),
+        propNames = c('id', 'height', 'mapData', 'modelData', 'options', 'width'),
         package = 'dashEscher'
         )
 
