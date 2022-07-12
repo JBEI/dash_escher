@@ -20,7 +20,7 @@ setup(
     license=package['license'],
     description=package.get('description', package_name),
     long_description=long_description,
-    long_description_content_type='text/markdown'
+    long_description_content_type='text/markdown',
     install_requires=[],
     classifiers = [
         'Framework :: Dash',
