@@ -17,11 +17,30 @@ export default class DashEscher extends Component {
         this.myReference = React.createRef();
     }
 
-    componentDidMount() {
+    renderEscherNetwork() {
+        // Note: in the future, it may not be desirable to rerender the whole
+        // canvas on every component update. Eg, some prop changes might not
+        // warrant a full refresh. In that case, we can check for prop changes 
+        // in componentDidUpdate.
         var container = d3.select(this.myReference.current);
+
+        // Note: although I'd rather remove the child nodes directly (eg, by
+        // iterating through the escherRef.current.children and calling ".remove"),
+        // something goes wrong with the timing and the canvas is occasionally
+        // duplicated. So we use d3, the same library escher uses, and it clears
+        // properly.
+        container.html("");
+
         var b = Builder(this.props.mapData, this.props.modelData, null, container, this.props.options)
     }
 
+    componentDidMount() {
+        this.renderEscherNetwork();
+    }
+
+    componentDidUpdate() {
+        this.renderEscherNetwork();
+    }
 
     render() {
         const {id, height, width} = this.props;

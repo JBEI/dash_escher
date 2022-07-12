@@ -2,7 +2,15 @@
   "src/lib/components/DashEscher.react.js": {
     "description": "DashEscher visualizes a metabolic network using Escher Builder.\nIt takes two properties, `mapData` and `modelData`, and\ndisplays the network.",
     "displayName": "DashEscher",
-    "methods": [],
+    "methods": [
+      {
+        "name": "renderEscherNetwork",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
       "id": {
         "type": {

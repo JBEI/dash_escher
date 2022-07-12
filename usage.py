@@ -3,7 +3,7 @@ import json
 import dash_escher
 import dash
 from dash.dependencies import Input, Output
-from dash import html
+from dash import dcc, html
 
 app = dash.Dash(__name__)
 
@@ -13,8 +13,25 @@ with open('tests/e_coli_core_model.json', 'r') as f:
     MODEL_DATA = json.load(f)
 
 app.layout = html.Div([
-    dash_escher.DashEscher(
-        id='input',
+    html.H4("Metabolic Network", className="card-title"),
+    html.Div(id="escher"),
+    dcc.Slider(
+        0,
+        50,
+        step=1,
+        value=10,
+        id='pgi-slider'
+    ),
+])
+
+
+@app.callback(
+    Output(component_id='escher', component_property='children'),
+    Input(component_id='pgi-slider', component_property='value')
+)
+def update_output_div(pgi_slider):
+    return dash_escher.DashEscher(
+        # id=f'pgislider{pgi_slider}',
         mapData=MAP_DATA,
         modelData=MODEL_DATA,
         options={
@@ -22,15 +39,13 @@ app.layout = html.Div([
             'menu': 'zoom',
             'reaction_data': {
                 'GLCpts': 30,
-                'PGI': 10,
+                'PGI': pgi_slider,
                 'PFK': 5
             },
         },
-        height='300px',
+        height='400px',
         width='100%',
     ),
-    html.Div(id='output')
-])
 
 
 if __name__ == '__main__':
