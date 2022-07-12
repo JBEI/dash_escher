@@ -15,23 +15,24 @@ with open('tests/e_coli_core_model.json', 'r') as f:
 app.layout = html.Div([
     html.H4("Metabolic Network", className="card-title"),
     html.Div(id="escher"),
-    dcc.Slider(
-        0,
-        50,
+    dcc.Input(
+        id='pgi-input',
+        type='number',
+        placeholder='Flux through PGI reaction',
+        min=0,
+        max=50,
         step=1,
-        value=10,
-        id='pgi-slider'
+        value=3,
     ),
 ])
 
 
 @app.callback(
     Output(component_id='escher', component_property='children'),
-    Input(component_id='pgi-slider', component_property='value')
+    Input(component_id='pgi-input', component_property='value')
 )
 def update_output_div(pgi_slider):
     return dash_escher.DashEscher(
-        # id=f'pgislider{pgi_slider}',
         mapData=MAP_DATA,
         modelData=MODEL_DATA,
         options={

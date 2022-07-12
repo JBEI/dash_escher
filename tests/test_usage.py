@@ -1,3 +1,5 @@
+import time
+
 from dash.testing.application_runners import import_app
 
 
@@ -8,18 +10,26 @@ def test_render_component(dash_duo):
     app = import_app('usage')
     dash_duo.start_server(app)
 
-    # Get the generated component input with selenium
-    # The html input will be a children of the #input dash component
-    my_component = dash_duo.find_element('#input > input')
+    def get_pgi_flux():
+        # Get the generated component input with selenium
+        # The html input will be a children of the #input dash component
+        reaction_labels = dash_duo.find_elements('.reaction-label')
 
-    assert 'my-value' == my_component.get_attribute('value')
+        for reaction in reaction_labels:
+            if reaction.text.startswith('PGI'):
+                break
+        else:
+            assert False, f'None of the {len(reaction_labels)} reaction labels started with PGI'
 
-    # Clear the input
-    dash_duo.clear_input(my_component)
+        return float(reaction.text.split(' ')[-1])
 
-    # Send keys to the custom input.
-    my_component.send_keys('Hello dash')
+    assert get_pgi_flux() == 3
 
-    # Wait for the text to equal, if after the timeout (default 10 seconds)
-    # the text is not equal it will fail the test.
-    dash_duo.wait_for_text_to_equal('#output', 'You have entered Hello dash')
+    pgi_input = dash_duo.find_element('#pgi-input')
+    pgi_input.clear()
+    pgi_input.send_keys('7')
+
+    # This is ugly, but it does test the desired functionality.
+    time.sleep(2)
+
+    assert get_pgi_flux() == 37, 'Update failed'
