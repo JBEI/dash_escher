@@ -2,6 +2,8 @@
 
 dash-escher is a Dash component library. It renders [Escher](https://escher.github.io/#/) metabolic networks utilizing the [Escher Javascript API](https://escher.readthedocs.io/en/latest/javascript_api.html).
 
+![Screengrab](docs/screengrab.png)
+
 Get started with:
 1. Install Dash and its dependencies: https://dash.plotly.com/installation
 2. Run `python usage.py`
