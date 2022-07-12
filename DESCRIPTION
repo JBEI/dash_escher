@@ -1,6 +1,6 @@
 Package: dashEscher
 Title: A Plotly Dash component for EscherPy, a metabolic flux viewer.
-Version: 0.0.1
+Version: 0.0.4
 Description: A Plotly Dash component for EscherPy, a metabolic flux viewer.
 Depends: R (>= 3.0.2)
 Imports: 
